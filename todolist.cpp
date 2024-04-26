@@ -3,11 +3,6 @@
 #include <fstream>
 #include <conio.h>
 // this is just a check
-/*void check_as_complete();
-
-void delete_task();
-
-void show_task();*/
 
 std::string show_task(int task_id){
        std::ifstream file("tasks.txt");
