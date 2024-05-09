@@ -3,7 +3,6 @@
 #include <fstream>
 #include <conio.h>
 #include <sstream>
-// this is just a check
 
 std::string show_task(int task_id){
        std::ifstream file("tasks.txt");
@@ -22,6 +21,23 @@ std::string show_task(int task_id){
     std::cout<<portionString<<std::endl;
     return portionString;
 }
+void Check_As_Completed (int Task_number){
+   // Open the file for reading
+    std::ifstream file("tasks_Check.txt");
+    if (!file.is_open()) {
+        std::cerr << "Failed to open file for reading." << std::endl;
+        return;
+    } 
+    // Read the entire contents into a string
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    file.close();  // Close the file after reading
+    
+
+}
+
+
+
 
 void Remove_Task (int Task_number) {
     // Open the file for reading
