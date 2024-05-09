@@ -2,12 +2,8 @@
 #include <string>
 #include <fstream>
 #include <conio.h>
+#include <sstream>
 // this is just a check
-/*void check_as_complete();
-
-void delete_task();
-
-void show_task();*/
 
 std::string show_task(int task_id){
        std::ifstream file("tasks.txt");
@@ -26,6 +22,43 @@ std::string show_task(int task_id){
     std::cout<<portionString<<std::endl;
     return portionString;
 }
+
+void Remove_Task (int Task_number) {
+    // Open the file for reading
+    std::ifstream file("tasks.txt");
+    if (!file.is_open()) {
+        std::cerr << "Failed to open file for reading." << std::endl;
+        return;
+    }
+
+    // Read the entire contents into a string
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    file.close();  // Close the file after reading
+
+    std::string content = buffer.str();
+    int start_pos = (Task_number-1) * 140;
+    // Check if start_pos is within the string bounds
+    if (start_pos >= content.size()) {
+        std::cerr << "Start position is out of the string's bounds." << std::endl;
+        return;
+    }
+
+    // Erase the specified section of the text
+    content.erase(start_pos, 140);
+
+    // Open the file for writing (this truncates the existing file)
+    std::ofstream outfile("tasks.txt");
+    if (!outfile.is_open()) {
+        std::cerr << "Failed to open file for writing." << std::endl;
+        return;
+    }
+
+    // Write the modified content back to the file
+    outfile << content;
+    outfile.close();
+}
+
 
 void addTaskToFile(const std::string& task,int desiredSize) {
     
@@ -75,6 +108,7 @@ std::string add_task() {
 }
 
 
+
 int main(){
     char key;
 do {
@@ -90,9 +124,11 @@ do {
     else if (choice == 2){
         std::cout<< "please enter task ID: ";
         std::cin >> task_id;
-        show_task (task_id);};/*
-    else if (choice == 3)
-        delete_task();
+        show_task (task_id);}
+    else if (choice == 3){
+        std::cout<< "please enter task ID: ";
+        std::cin >> task_id;
+        Remove_Task (task_id);};/*
     else if (choice == 4)
         show_task ();
     else
