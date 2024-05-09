@@ -2,10 +2,6 @@ first task
 1997          
 low      
 low           
-second task                                                                                        
-1998          
-low      
-family        
 fourth task                                                                                        
 2000          
 high     
