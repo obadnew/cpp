@@ -4,6 +4,7 @@
 #include <conio.h>
 #include <sstream>
 
+
 std::string show_task(int task_id){
        std::ifstream file("tasks.txt");
        file.seekg(140*(task_id - 1));
@@ -20,22 +21,23 @@ std::string show_task(int task_id){
 
     std::ifstream file_new("tasks_Check.txt");
        file_new.seekg(task_id - 1);
-        char portion_new[1]; // +1 for null terminator
+        char portion_new[1]; 
 
     // Read the portion of the file
-    file.read(portion_new, 1);
-     file.close();
+    file_new.read(portion_new, 1);{
+     file_new.close();
     
-    if (portion_new == 0){
+    if (portion_new[0] == '0'){
         std::cout<<"This Task is not Completed"<<std::endl;
     }
     else {
-         std::cout<<"This Task is Completed"<<std::endl;
-
+         std::cout<<"This Task is Completed" <<std::endl;
+}
     }
     return portionString;
 }
 
+//change the status of the task completion between completed and not completed
 void Check_As_Completed (int Task_number){
    // Open the file for reading
     std::ifstream file("tasks_Check.txt");// new text document for storing checks  
@@ -48,7 +50,11 @@ void Check_As_Completed (int Task_number){
     buffer << file.rdbuf();
     file.close();  // Close the file after reading
     std::string content = buffer.str();
-    content.replace(Task_number-1, 1, "1");
+    if (content[Task_number-1] == 0){
+    content.replace(Task_number-1, 1, "1");}
+    else {
+        content.replace(Task_number-1, 1, "0");}
+    
     // Open the file for writing (this truncates the existing file)
     std::ofstream outfile("tasks_Check.txt");
     if (!outfile.is_open()) {
@@ -62,6 +68,7 @@ void Check_As_Completed (int Task_number){
 
 }
 
+//removing task from the to do list
 void Remove_Task (int Task_number) {
     // Open the file for reading
     std::ifstream file("tasks.txt");
@@ -128,6 +135,7 @@ void Remove_Task (int Task_number) {
 
 }
 
+//storing task into file to save its info
 void addTaskToFile(const std::string& task,int desiredSize) {
     
     std::string pad_str = task;
@@ -145,6 +153,7 @@ void addTaskToFile(const std::string& task,int desiredSize) {
     }
 }
 
+//function that add task to the do list
 std::string add_task() {
     std::string description, due_date, priority, category;
     
@@ -185,7 +194,7 @@ std::string add_task() {
 
 }
 
-
+//main function
 int main(){
     char key;
 do {
