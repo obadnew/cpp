@@ -50,7 +50,7 @@ void Check_As_Completed (int Task_number){
     buffer << file.rdbuf();
     file.close();  // Close the file after reading
     std::string content = buffer.str();
-    if (content[Task_number-1] == 0){
+    if (content[Task_number-1] == '0'){
     content.replace(Task_number-1, 1, "1");}
     else {
         content.replace(Task_number-1, 1, "0");}
